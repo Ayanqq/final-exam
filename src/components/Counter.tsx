@@ -34,8 +34,8 @@ export const Counter = ({}: CounterType) => {
 
     return (
         <>
-            <span>Введите число</span>
             <span>Макс число - {currentNumber}</span>
+            <span>Введите число</span>
             <input type={"number"} onChange={counterOnChangeHandler} value={currentNumber}/>
             <CounterMain>
                 <StyledSpan color={counter === currentNumber ? 'red' : 'white'}>{counter}</StyledSpan>
