@@ -2,6 +2,7 @@
   "name": "final_exam",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Ayanqq.github.io/final-exam",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
