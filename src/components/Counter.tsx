@@ -9,7 +9,7 @@ type CounterType = {
 //todo:сделать инпут, disable переделать
 export const Counter = ({}: CounterType) => {
     const [counter, setCounter] = useState<number>(0)
-    const [currentNumber, setCurrentNumber] = useState<number>(0)
+    const [currentNumber, setCurrentNumber] = useState<number | string>('')
 
     const addIncrement = () => {
         if (counter < currentNumber) {
@@ -19,6 +19,7 @@ export const Counter = ({}: CounterType) => {
 
     const resetButton = () => {
         setCounter(0)
+        setCurrentNumber('')
     }
 
     const counterOnChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
