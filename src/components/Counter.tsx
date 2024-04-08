@@ -3,13 +3,12 @@ import styled from "styled-components";
 import {Button} from "./Button";
 
 type CounterType = {
-    // value:number
+    maxValue:number
 }
 
 //todo:сделать инпут, disable переделать
-export const Counter = ({}: CounterType) => {
-    const [counter, setCounter] = useState<number>(0)
-    const [currentNumber, setCurrentNumber] = useState<number | string>('')
+export const Counter = ({maxValue}: CounterType) => {
+
 
     const addIncrement = () => {
         if (counter < currentNumber) {
@@ -27,17 +26,11 @@ export const Counter = ({}: CounterType) => {
         setCurrentNumber(currentNumber)
     }
 
-    // const buttonHandler = () => {
-    //
-    //     setCurrentNumber(currentNumber)
-    // }
+
 
 
     return (
         <>
-            <span>Макс число - {currentNumber}</span>
-            <span>Введите число</span>
-            <input type={"number"} onChange={counterOnChangeHandler} value={currentNumber}/>
             <CounterMain>
                 <StyledSpan color={counter === currentNumber ? 'red' : 'white'}>{counter}</StyledSpan>
             </CounterMain>
