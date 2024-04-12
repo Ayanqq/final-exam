@@ -3,39 +3,33 @@ import styled from "styled-components";
 import {Button} from "./Button";
 
 type CounterType = {
+    counter:number
+    onIncreaseHandler:()=> void;
     maxValue:number
+    resetButton:()=> void
+
 }
 
 //todo:сделать инпут, disable переделать
-export const Counter = ({maxValue}: CounterType) => {
+export const Counter = ({maxValue, counter, onIncreaseHandler, resetButton}: CounterType) => {
 
 
     const addIncrement = () => {
-        if (counter < currentNumber) {
-            setCounter(counter + 1)
+        if (counter < maxValue) {
+            onIncreaseHandler()
         }
     }
-
-    const resetButton = () => {
-        setCounter(0)
-        setCurrentNumber('')
-    }
-
-    const counterOnChangeHandler = (e:ChangeEvent<HTMLInputElement>) => {
-        const currentNumber = e.currentTarget.valueAsNumber
-        setCurrentNumber(currentNumber)
-    }
-
 
 
 
     return (
         <>
             <CounterMain>
-                <StyledSpan color={counter === currentNumber ? 'red' : 'white'}>{counter}</StyledSpan>
+                <StyledSpan color={counter === maxValue ? 'red' : 'white'}>{counter}</StyledSpan>
             </CounterMain>
             <StyledButtons>
-                <Button title={'inc'} onclick={addIncrement} disabled={counter === currentNumber}/>
+                <Button title={'inc'} onclick={addIncrement} disabled={counter === maxValue}/>
+                {/*но чтобы проверить maxValue - туда должно что то попатсь, и попадать должно только тогда, когда set*/}
                 <Button title={'reset'} onclick={resetButton} disabled={counter < 1}/>
             </StyledButtons>
         </>

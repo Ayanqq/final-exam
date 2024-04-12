@@ -1,25 +1,48 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import styled from "styled-components";
-import { Button } from "./Button";
+import {Button} from "./Button";
 
 type CounterType = {
-    // value:
+    minValue:number
+    maxValue:number
     updateMaxValue:(newMaxValue: number) => void;
+    updateMinValue:(newMinValue: number)=> void;
+    setNumbers:(minValue:number) => void;
+    setCounter:(setCounter:number)=> void
+    setMaxValue:(newMaxValue: number)=> void;
 }
 
 //todo:сделать инпут, disable переделать
-export const SetCounter = (props: CounterType) => {
+export const SetCounter = ({maxValue, minValue, updateMaxValue, updateMinValue, setNumbers, setCounter, setMaxValue}: CounterType) => {
 
 
     const maxValueHandler = (e:ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.currentTarget.value)
+        updateMaxValue(value) // отсюда нужно перенести как то в updateMaxValue
+        // setMaxValue(value) // отсюда нужно перенести как то в updateMaxValue
     }
 
-    const minValueHandler = (e:ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.currentTarget.value)
-
+    const minValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.currentTarget.value);
+        updateMinValue(value);
     }
 
+    const setCounterHandler = () => {
+        updateMaxValue(maxValue) // отвечает за максимальное значение
+        // setMaxValue(maxValue)
+        setNumbers(minValue); // отвечает за минимальное значение
+        setCounter(minValue); //отвечает за размещение числа в сам счетчик
+    }
+
+    const disabled = maxValue < 0 || minValue < 0
+    if (maxValue < 0) {
+        updateMaxValue(-1)
+    }
+
+    if (minValue < 0) {
+        updateMinValue(-1)
+    }
+    //при клике на SetCounterHandler - maxValue должно получать данные с maxValueHandler
 
 
     return (
@@ -27,7 +50,7 @@ export const SetCounter = (props: CounterType) => {
                 <span>max value <input value={maxValue} onChange={maxValueHandler} type='number'/></span>
                 <span>start value <input value={minValue} onChange={minValueHandler} type='number'/></span>
             <StyledButtons>
-                <Button title={'set'} onclick={()=> {}} disabled={result} />
+                <Button title={'set'} onclick={setCounterHandler} disabled={disabled}/>
             </StyledButtons>
         </StyledDiv>
     );

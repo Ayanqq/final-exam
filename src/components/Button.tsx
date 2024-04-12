@@ -4,7 +4,7 @@ import styled from "styled-components";
 type ButtonType = {
     title:string;
     onclick:()=> void
-    disabled:boolean
+    disabled?:boolean
 }
 
 export const Button = ({title, onclick, disabled}:ButtonType) => {
