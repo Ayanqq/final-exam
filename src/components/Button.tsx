@@ -18,16 +18,16 @@ const StyledButton = styled.button`
   width: 100px;
   font-size: 20px;
   background-color: #279eea;
-  border:0;
+  border: 0;
   border-radius: 5px;
-  
+
   &:active {
-    opacity:0.5
+    opacity: 0.5
   }
-  
+
   &:disabled {
-    opacity:0.5
+    opacity: 0.5
   }
-  
+
 `
 

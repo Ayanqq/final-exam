@@ -3,16 +3,17 @@ import styled from "styled-components";
 import {Button} from "./Button";
 
 type CounterType = {
-    counter:number
-    onIncreaseHandler:()=> void;
-    maxValue:number
-    resetButton:()=> void
+    counter: number
+    maxValue: number
+    minValue: number
+    onIncreaseHandler: () => void;
+    resetButton: () => void
 
 }
 
 //todo:сделать инпут, disable переделать
-export const Counter = ({maxValue, counter, onIncreaseHandler, resetButton}: CounterType) => {
-
+export const Counter = ({maxValue, minValue, counter, onIncreaseHandler, resetButton}: CounterType) => {
+    const [error, setError] = useState(false)
 
     const addIncrement = () => {
         if (counter < maxValue) {
@@ -20,20 +21,23 @@ export const Counter = ({maxValue, counter, onIncreaseHandler, resetButton}: Cou
         }
     }
 
+    const Error = (boolean:boolean) => {
+        setError(boolean)
+    }
 
-
-    return (
-        <>
-            <CounterMain>
-                <StyledSpan color={counter === maxValue ? 'red' : 'white'}>{counter}</StyledSpan>
-            </CounterMain>
-            <StyledButtons>
-                <Button title={'inc'} onclick={addIncrement} disabled={counter === maxValue}/>
-                {/*но чтобы проверить maxValue - туда должно что то попатсь, и попадать должно только тогда, когда set*/}
-                <Button title={'reset'} onclick={resetButton} disabled={counter < 1}/>
-            </StyledButtons>
-        </>
-    );
+        return (
+            <>
+                <CounterMain>
+                    {error ? <StyledError>STOP</StyledError> :
+                        <StyledSpan color={counter === maxValue ? 'red' : 'white'}>{counter}</StyledSpan>}
+                </CounterMain>
+                <StyledButtons>
+                    <Button title={'inc'} onclick={addIncrement} disabled={counter === maxValue}/>
+                    {/*но чтобы проверить maxValue - туда должно что то попатсь, и попадать должно только тогда, когда set*/}
+                    <Button title={'reset'} onclick={resetButton} disabled={counter < 1}/>
+                </StyledButtons>
+            </>
+        );
 };
 
 
@@ -49,7 +53,7 @@ const CounterMain = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 `
 
 const StyledSpan = styled.span<SpanType>`
@@ -58,10 +62,15 @@ const StyledSpan = styled.span<SpanType>`
 `
 
 const StyledButtons = styled.div`
-  display:flex;
-  gap:5px;
-  border:5px solid #279eea;
-  padding:10px;
-  border-radius:20px;
+  display: flex;
+  gap: 5px;
+  border: 5px solid #279eea;
+  padding: 10px;
+  border-radius: 20px;
+`
+
+const StyledError = styled.div`
+  color: red;
+  font-size: 30px;
 `
 

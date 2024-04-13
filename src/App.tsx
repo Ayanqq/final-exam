@@ -12,48 +12,34 @@ function App() {
     const [counter, setCounter] = useState<number>(0)
     //- это счетчик, который прибавляет +1
 
-    const [currentNumber, setCurrentNumber] = useState<number>(maxValue)
+    const [minValue, setMinValue] = useState<number>(maxValue)
     //- это счетчик, который отвечает за минимальное значение
 
     const onIncreaseHadnler = () => {
         setCounter(counter + 1)
     }
-
-    const updateMaxValue = (newMaxValue: number) => {
-        setMaxValue(newMaxValue);
-    };
-
-    const updateMinValue = (newMinValue: number) => {
-        setCurrentNumber(newMinValue);
-        // setCounter(newMinValue)
-    }
-
     const resetButton = () => {
         setCounter(0)
-        setCurrentNumber(0)
-        setMaxValue(0)
+    }
+    const setHandler = (min: number, max: number) => {
+        setCounter(min)
+        setMaxValue(max)
     }
 
-    const setNumbers = () => {
-        setCurrentNumber(currentNumber)
-    }
 
     return (
         <div style={{display: "flex", justifyContent: 'center', gap: '20px'}}>
             <SetCounter
-                minValue={currentNumber}
+                minValue={minValue}
                 maxValue={maxValue}
-                updateMaxValue={updateMaxValue}
-                updateMinValue={updateMinValue}
-                setNumbers={setNumbers}
-                setCounter={setCounter}
-                setMaxValue={setMaxValue}
+                setCount={setHandler}
             />
             <Main>
                 <Counter
                     counter={counter}
-                    onIncreaseHandler={onIncreaseHadnler}
                     maxValue={maxValue}
+                    minValue={minValue}
+                    onIncreaseHandler={onIncreaseHadnler}
                     resetButton={resetButton}
                 />
             </Main>

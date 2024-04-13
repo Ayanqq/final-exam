@@ -1,54 +1,64 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "./Button";
 
 type CounterType = {
     minValue:number
     maxValue:number
-    updateMaxValue:(newMaxValue: number) => void;
-    updateMinValue:(newMinValue: number)=> void;
-    setNumbers:(minValue:number) => void;
-    setCounter:(setCounter:number)=> void
-    setMaxValue:(newMaxValue: number)=> void;
+    setCount: (min: number, max: number)=>void
 }
 
 //todo:сделать инпут, disable переделать
-export const SetCounter = ({maxValue, minValue, updateMaxValue, updateMinValue, setNumbers, setCounter, setMaxValue}: CounterType) => {
+export const SetCounter = ({maxValue, minValue, setCount}: CounterType) => {
+    const [min, setMin] = useState(minValue)
+    const [max, setMax] = useState(maxValue)
 
 
     const maxValueHandler = (e:ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.currentTarget.value)
-        updateMaxValue(value) // отсюда нужно перенести как то в updateMaxValue
-        // setMaxValue(value) // отсюда нужно перенести как то в updateMaxValue
+        setMax(value)
     }
 
     const minValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.currentTarget.value);
-        updateMinValue(value);
+        setMin(value);
     }
 
     const setCounterHandler = () => {
-        updateMaxValue(maxValue) // отвечает за максимальное значение
-        // setMaxValue(maxValue)
-        setNumbers(minValue); // отвечает за минимальное значение
-        setCounter(minValue); //отвечает за размещение числа в сам счетчик
+        setCount(min, max)
     }
 
-    const disabled = maxValue < 0 || minValue < 0
-    if (maxValue < 0) {
-        updateMaxValue(-1)
+    const disabled = min < 0 || max < 0
+    if (min < 0) {
+        setMin(min)
     }
 
-    if (minValue < 0) {
-        updateMinValue(-1)
+    if (max < 0) {
+        setMax(max)
     }
     //при клике на SetCounterHandler - maxValue должно получать данные с maxValueHandler
 
+    // const onBlurHandler = () => {
+    //     setMax(Number('s '))
+    //     setMin(Number(' '))
+    // }
 
     return (
         <StyledDiv>
-                <span>max value <input value={maxValue} onChange={maxValueHandler} type='number'/></span>
-                <span>start value <input value={minValue} onChange={minValueHandler} type='number'/></span>
+                <span>
+                    max value
+                    <input
+                        value={max}
+                        onChange={maxValueHandler}
+                        type='number'/>
+                </span>
+                <span>
+                    min value
+                    <input
+                        value={min}
+                        onChange={minValueHandler}
+                        type='number'/>
+                </span>
             <StyledButtons>
                 <Button title={'set'} onclick={setCounterHandler} disabled={disabled}/>
             </StyledButtons>
